@@ -12,3 +12,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
           package-name: "get-package-type"
+          bump-minor-pre-major: Yes
