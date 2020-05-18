@@ -3,6 +3,7 @@
 const t = require('libtap');
 
 const getPackageType = require('.');
+const cache = require('./cache.cjs');
 
 process.chdir(__dirname);
 
@@ -25,8 +26,22 @@ const checks = {
 	...pathInfo('', 'commonjs')
 };
 
+t.test('promise cache', async t => {
+	// This test hits the path where a value is not cached but a promise is
+	const p1 = getPackageType('./index.cjs');
+	const p2 = getPackageType('./index.mjs');
+	t.same(await p1, await p2);
+	t.same(await p1, 'module');
+});
+
 t.test('check directories', async t => {
 	for (const [directory, type] of Object.entries(checks)) {
-		t.same(await getPackageType(directory), type, `${directory} type is ${type}`);
+		t.same(await getPackageType(directory), type, `async: ${directory} type is ${type}`);
+	}
+
+	cache.clear();
+
+	for (const [directory, type] of Object.entries(checks)) {
+		t.same(getPackageType.sync(directory), type, `sync: ${directory} type is ${type}`);
 	}
 });

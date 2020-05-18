@@ -9,6 +9,7 @@ const getPackageType = require('get-package-type');
 
 (async () => {
   console.log(await getPackageType('file.js'));
+  console.log(getPackageType.sync('file.js'));
 })();
 ```
 
