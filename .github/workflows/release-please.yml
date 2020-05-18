@@ -7,8 +7,8 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: bcoe/release-please-action@v1.0.1
+      - uses: bcoe/release-please-action@v1.1.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
-          package-name: "@PKG_SCOPE@/@PKG_NAME@"
+          package-name: "get-package-type"
